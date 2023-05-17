@@ -28,8 +28,8 @@ class AuthController
         $json = file_get_contents('php://input');
         $data = json_decode($json, true);
 
-        $email = $data['email'];
-        $password = $data['password'];
+        $email = filter_var($data['email'], FILTER_VALIDATE_EMAIL);
+        $password = filter_var($data['password'], FILTER_SANITIZE_STRING);
 
         $userFound = $this->user->where('email', $email)->first();
 

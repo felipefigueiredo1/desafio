@@ -10,6 +10,6 @@ COPY init.sql /docker-entrypoint-initdb.d/
 # Definir variáveis de ambiente
 ENV POSTGRES_USER postgres
 ENV POSTGRES_PASSWORD 123456
-ENV POSTGRES_DB teste
+ENV POSTGRES_DB postgres
 
 EXPOSE 5432

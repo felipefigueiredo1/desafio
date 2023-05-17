@@ -1,13 +1,14 @@
 <template>
     <div>
         <h2>Login</h2>
-    </div>
 
     <form @submit.prevent="login">
         <input type="text" placeholder="Seu email" v-model="user.email">
         <input type="password" placeholder="Sua senha" v-model="user.password">
         <button type="submit">Login</button>
     </form>
+</div>
+
 </template>
 
 <script setup>

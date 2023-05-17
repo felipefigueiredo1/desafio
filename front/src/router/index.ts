@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import LoginView from '../views/LoginView.vue';
 import DashboardView from '../views/DashboardView.vue';
+import CreateProductView from '../views/CreateProductView.vue';
+import CreateCategoryView from '../views/CreateCategoryView.vue';
 import { useAuth } from '@/stores/auth';
 
 const router = createRouter({
@@ -30,6 +32,22 @@ const router = createRouter({
       name: 'about',
       component: () => import('../views/AboutView.vue')
     },
+    {
+      path: '/createProduct',
+      name: 'createProduct',
+      component: CreateProductView,
+      meta: {
+        auth: true
+      },
+    },
+    {
+      path: '/createCategory',
+      name: 'createCategory',
+      component: CreateCategoryView,
+      meta: {
+        auth: true
+      },
+    }
   ]
 });
 

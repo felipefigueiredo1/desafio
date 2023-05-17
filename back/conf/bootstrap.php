@@ -16,7 +16,7 @@ $capsule = new Capsule;
 $capsule->addConnection([
     'driver'    => 'pgsql',
     'host'      => 'postgres',
-    'database'  => 'teste',
+    'database'  => 'postgres',
     'username'  => 'postgres',
     'password'  => '123456',
     'charset'   => 'utf8',

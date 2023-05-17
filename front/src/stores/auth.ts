@@ -7,6 +7,12 @@ export const useAuth = defineStore('auth', () => {
     const refreshToken = ref(localStorage.getItem('rjwt'));
     const fullName = ref(localStorage.getItem('fullName'));
 
+    function login(tokenValue: string, refreshToken: string, fullName: string) {
+        setToken(tokenValue);
+        setRefreshToken(refreshToken);
+        setUserFullName(fullName);
+    }
+
     function setToken(tokenValue: string) {
         localStorage.setItem('jwt', tokenValue);
         token.value = tokenValue;
@@ -57,6 +63,7 @@ export const useAuth = defineStore('auth', () => {
         setToken,
         setRefreshToken,
         setUserFullName,
-        checkToken
+        checkToken,
+        login
     }
 })
