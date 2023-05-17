@@ -18,6 +18,10 @@ export const useAuth = defineStore('auth', () => {
         token.value = tokenValue;
     }
 
+    function isAuthenticated() {
+        return token.value && fullName.value;
+    }
+
     function setRefreshToken(refreshTokenValue: string) {
         localStorage.setItem('rjwt', refreshTokenValue);
         refreshToken.value = refreshTokenValue;
@@ -30,19 +34,29 @@ export const useAuth = defineStore('auth', () => {
 
     async function checkToken() {
         try {
-            await refreshTokenF()
+            await refreshTokenF();
             const tokenAuth = `Bearer ${token.value}`;
             const { data } = await http.get('auth', {
                 headers: {
                     Authorization: tokenAuth
                 }
-            })
+            })  
 
-            return data;
+            return true;
         } catch (error: any) {
-            console.log(error);
+            clear();
             return false;
         }
+    }
+
+    function clear() {
+        localStorage.removeItem('jwt');
+        localStorage.removeItem('rjwt');
+        localStorage.removeItem('fullName');
+        token.value = '';
+        refreshToken.value = '';
+        fullName.value = '';
+
     }
 
     async function refreshTokenF() {
@@ -52,8 +66,9 @@ export const useAuth = defineStore('auth', () => {
                 Authorization: tokenAuth
             }
         })
-        
-        setToken(data.jwt)
+        if(data?.jwt) {
+            setToken(data.jwt)
+        }
     }
 
     return {
@@ -64,6 +79,7 @@ export const useAuth = defineStore('auth', () => {
         setRefreshToken,
         setUserFullName,
         checkToken,
-        login
+        login,
+        isAuthenticated
     }
 })

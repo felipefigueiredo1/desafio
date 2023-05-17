@@ -8,6 +8,7 @@ header("Access-Control-Allow-Headers: Authorization, Content-Type, x-xsrf-token,
 header("Access-Control-Allow-Methods: OPTIONS, POST, GET, PUT, DELETE");
 header('Content-Type: application/json');
 
+
 $dotenv = Dotenv::createImmutable(dirname(__FILE__, 2));
 $dotenv->load();
 
@@ -16,7 +17,7 @@ $capsule = new Capsule;
 $capsule->addConnection([
     'driver'    => 'pgsql',
     'host'      => 'postgres',
-    'database'  => 'postgres',
+    'database'  => 'teste',
     'username'  => 'postgres',
     'password'  => '123456',
     'charset'   => 'utf8',

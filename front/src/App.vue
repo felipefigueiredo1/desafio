@@ -1,6 +1,16 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { useAuth } from './stores/auth';
+import { ref, onMounted } from 'vue';
+
+const auth = useAuth()
+const isAuthenticated = ref(false)
+
+onMounted(async() => {
+  isAuthenticated.value = await auth.checkToken();
+})
+
+
 </script>
 
 <template>
@@ -12,7 +22,7 @@ import HelloWorld from './components/HelloWorld.vue'
         <RouterLink to="/dashboard">Dashboard</RouterLink>
         <RouterLink to="/about">About</RouterLink>
         <RouterLink to="/createProduct">Create Product</RouterLink>
-        <RouterLink to="/createCategory">Create Category</RouterLink>
+        <RouterLink to="/createCategory" v-if="isAuthenticated">Create Category</RouterLink>
       </nav>
     </div>
   </header>

@@ -29,7 +29,7 @@ class AuthController
         $data = json_decode($json, true);
 
         $email = filter_var($data['email'], FILTER_VALIDATE_EMAIL);
-        $password = filter_var($data['password'], FILTER_SANITIZE_STRING);
+        $password = $data['password'];
 
         $userFound = $this->user->where('email', $email)->first();
 
@@ -79,7 +79,7 @@ class AuthController
             echo json_encode(['status' => 401, 'message' => $th->getMessage()]);
         }
 
-        echo json_decode($token);
+        echo json_encode(['jwt' => $token]);
     }
 
     /**
@@ -106,7 +106,7 @@ class AuthController
      * @param [string] $email
      * @echo void
      */
-    public function createNewToken(string $email): void
+    public function createNewToken(string $email): string
     {
         $payload = [
             "exp" => time() + 10,   
@@ -116,6 +116,6 @@ class AuthController
 
         $encode = JWT::encode($payload, $_ENV['KEY'], 'HS256');
 
-        echo json_encode(['jwt' => $encode]);
+        return json_encode(['jwt' => $encode]);
     }
 }

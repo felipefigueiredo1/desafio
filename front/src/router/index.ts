@@ -2,8 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import LoginView from '../views/LoginView.vue';
 import DashboardView from '../views/DashboardView.vue';
-import CreateProductView from '../views/CreateProductView.vue';
-import CreateCategoryView from '../views/CreateCategoryView.vue';
+import ProductsView from '../views/ProductsView.vue';
+import ProductTypesView from '../views/ProductTypesView.vue';
+import ProductTypeTaxRatesView from '../views/ProductTypeTaxRatesView.vue';
 import { useAuth } from '@/stores/auth';
 
 const router = createRouter({
@@ -33,20 +34,28 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue')
     },
     {
-      path: '/createProduct',
-      name: 'createProduct',
-      component: CreateProductView,
+      path: '/products',
+      name: 'products',
+      component: ProductsView,
       meta: {
         auth: true
       },
     },
     {
-      path: '/createCategory',
-      name: 'createCategory',
-      component: CreateCategoryView,
+      path: '/product-types',
+      name: 'product-types',
+      component: ProductTypesView,
       meta: {
         auth: true
       },
+    },
+    {
+      path: '/product-type-tax-rates',
+      name: 'product-type-tax-rates',
+      component: ProductTypeTaxRatesView,
+      meta: {
+        auth: true
+      }
     }
   ]
 });

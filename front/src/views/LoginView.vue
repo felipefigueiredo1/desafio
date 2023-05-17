@@ -13,8 +13,10 @@
 
 <script setup>
 import http from '@/services/http';
-import { reactive } from 'vue';
+import { reactive, defineEmits } from 'vue';
 import { useAuth } from '@/stores/auth.ts';
+
+const emit = defineEmits(['loginUser'])
 
 const auth = useAuth();
 
@@ -27,13 +29,11 @@ async function login() {
     try {
         const { data } = await http.post('login',  user);
         auth.login(data.jwt, data.rjwt, data.user);
-        auth.setToken(data.jwt);
-        auth.setRefreshToken(data.rjwt);
-        auth.setUserFullName(data.user);
     } catch(error) {
         console.log(error);
     }
 }
+
 </script>
 
 <style lang="scss" scoped>
