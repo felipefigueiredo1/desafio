@@ -4,12 +4,6 @@ import { useAuth } from './stores/auth';
 import { ref, onMounted } from 'vue';
 
 const auth = useAuth()
-const isAuthenticated = ref(false)
-
-onMounted(async() => {
-  isAuthenticated.value = await auth.checkToken();
-})
-
 
 </script>
 
@@ -18,11 +12,13 @@ onMounted(async() => {
     <div class="wrapper">
       <nav>
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/login">Login</RouterLink>
+        <RouterLink to="/login"  v-if="!auth.isAuthenticated()">Login</RouterLink>
+        <RouterLink to="/logoff" @click="auth.clear()" v-else>Logoff</RouterLink>
         <RouterLink to="/dashboard">Dashboard</RouterLink>
         <RouterLink to="/about">About</RouterLink>
-        <RouterLink to="/createProduct">Create Product</RouterLink>
-        <RouterLink to="/createCategory" v-if="isAuthenticated">Create Category</RouterLink>
+        <RouterLink to="/products">Products</RouterLink>
+        <RouterLink to="/product-types" v-if="auth.isAuthenticated()">Product Types</RouterLink>
+        <RouterLink to="/product-type-tax-rates" v-if="auth.isAuthenticated()">Product Type Tax Rates</RouterLink>
       </nav>
     </div>
   </header>

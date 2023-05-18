@@ -21,6 +21,15 @@ const router = createRouter({
       component: LoginView
     },
     {
+      path: '/logoff',
+      name: 'logoff',
+      redirect: to => {
+        // the function receives the target route as the argument
+        // we return a redirect path/location here.
+        return { path: '/login'}
+      },
+    },
+    {
       path: '/dashboard',
       name: 'dashboard',
       component: DashboardView,

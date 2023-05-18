@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProductController;
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     $r->addRoute('POST', '/login', AuthController::class . '/login');
     $r->addRoute('GET', '/auth', AuthController::class . '/auth');
     $r->addRoute('GET', '/refresh', AuthController::class . '/refreshToken');
+    $r->addRoute('GET', '/products', ProductController::class . '/index');
+    $r->addRoute('POST', '/products', ProductController::class . '/store');
     
     // {id} must be a number (\d+)
     //$r->addRoute('GET', '/user/{id:\d+}', 'get_user_handler');
@@ -30,6 +33,7 @@ switch ($routeInfo[0]) {
         break;
     case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
         $allowedMethods = $routeInfo[1];
+        echo 'here2';
         // ... 405 Method Not Allowed
         break;
     case FastRoute\Dispatcher::FOUND:

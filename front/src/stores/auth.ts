@@ -80,6 +80,7 @@ export const useAuth = defineStore('auth', () => {
         setUserFullName,
         checkToken,
         login,
-        isAuthenticated
+        isAuthenticated,
+        clear
     }
 })

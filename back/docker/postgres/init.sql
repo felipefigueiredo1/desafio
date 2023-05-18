@@ -16,20 +16,31 @@ INSERT INTO users (name, email, password) VALUES ('Felipe Figueiredo', 'felipe@e
 CREATE TABLE product_types (
     id SERIAL PRIMARY KEY,
     name VARCHAR(250),
-)
+    created_at TIMESTAMP NULL,
+    updated_at TIMESTAMP NULL
+);
 
--- Cria tabela "product"
+-- Insere tipos de produto na tabela
+INSERT INTO product_types(name, created_at, updated_at) VALUES('tipo1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- Cria tabela "products"
 CREATE TABLE products (
     id SERIAL PRIMARY KEY ,
     name VARCHAR(250),
-    product_type_id INT UNIQUE,
-    FOREIGN KEY (product_type_id) REFERENCES product_types (id)
-)
+    product_type_id INT,
+    FOREIGN KEY (product_type_id) REFERENCES product_types (id),
+    created_at TIMESTAMP NULL,
+    updated_at TIMESTAMP NULL
+);
+
+
 
 -- Cria tabela "product_type_tax_rates"
 CREATE TABLE product_type_tax_rates (
     id SERIAL PRIMARY KEY,
     tax_rate VARCHAR(250),
-    product_type_id INT UNIQUE,
-    FOREIGN KEY (product_type_id) REFERENCES product_types (id)
-)
+    product_type_id INT,
+    FOREIGN KEY (product_type_id) REFERENCES product_types (id),
+    created_at TIMESTAMP NULL,
+    updated_at TIMESTAMP NULL
+);

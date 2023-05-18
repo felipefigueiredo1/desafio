@@ -3,10 +3,12 @@
         <h2>Login</h2>
 
     <form @submit.prevent="login">
-        <input type="text" placeholder="Seu email" v-model="user.email">
+        <input type="email" placeholder="Seu email" v-model="user.email">
         <input type="password" placeholder="Sua senha" v-model="user.password">
         <button type="submit">Login</button>
     </form>
+
+    <ErrorContainer :error="errorResponse.message" v-if="errorResponse.message" />
 </div>
 
 </template>
@@ -15,22 +17,26 @@
 import http from '@/services/http';
 import { reactive, defineEmits } from 'vue';
 import { useAuth } from '@/stores/auth.ts';
-
-const emit = defineEmits(['loginUser'])
+import router from '../router/index.ts';
+import ErrorContainer from '../components/ErrorContainer.vue';
 
 const auth = useAuth();
 
 const user = reactive({
-    email: 'felipe@email.com',
+    email: 'felip2e@email.com',
     password: '123456'
 })
+
+const errorResponse = reactive({message: ''});
 
 async function login() {
     try {
         const { data } = await http.post('login',  user);
         auth.login(data.jwt, data.rjwt, data.user);
+        router.push('/dashboard')
     } catch(error) {
         console.log(error);
+        errorResponse.message = error.response.data.message;
     }
 }
 
