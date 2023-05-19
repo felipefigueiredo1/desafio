@@ -13,4 +13,4 @@ Mas se quiser rodar sem docker faça as configurações abaixo:
 - Rode composer install em /back
 - Em '/front/services/http.ts' coloque as credenciais do dominio rodando o php
 
-Já deixei um usuário como padrão para fazer login no formulario.
+Já deixei um usuário como padrão para fazer login no formulario. Enviei o build do vue como pedido, para acessar tem que está configurado para acessar o index.html do projeto ou simplesmente rodar npm install e npm run dev para ele ja abrir um server para execução.
