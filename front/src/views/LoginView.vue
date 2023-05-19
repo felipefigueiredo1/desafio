@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>Login</h2>
+        <p>Faça o Login para poder acessar a aplicação.</p>
 
     <form @submit.prevent="login">
         <input type="email" placeholder="Seu email" v-model="user.email">
@@ -33,7 +33,7 @@ async function login() {
     try {
         const { data } = await http.post('login',  user);
         auth.login(data.jwt, data.rjwt, data.user);
-        router.push('/dashboard')
+        router.push('/')
     } catch(error) {
         console.log(error);
         errorResponse.message = error.response.data.message;

@@ -1,6 +1,6 @@
 <template>
     <div class="alert alert-danger mt-4" role="alert">
-        Error: {{ error }}
+        {{ error }}
     </div>
 </template>
 
