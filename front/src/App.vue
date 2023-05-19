@@ -13,7 +13,7 @@ const auth = useAuth()
       <nav>
         <RouterLink to="/login"  v-if="!auth.isAuthenticated()">Login</RouterLink>
         <RouterLink to="/" v-if="auth.isAuthenticated()">Home</RouterLink>
-        <RouterLink to="/product-type-tax-rates" v-if="auth.isAuthenticated()">Vendas</RouterLink>
+        <RouterLink to="/sales" v-if="auth.isAuthenticated()">Vendas</RouterLink>
         <RouterLink to="/products" v-if="auth.isAuthenticated()">Cadastrar Produtos</RouterLink>
         <RouterLink to="/product-types" v-if="auth.isAuthenticated()">Cadastrar Tipos de produtos</RouterLink>
         <RouterLink to="/product-type-tax-rates" v-if="auth.isAuthenticated()">Cadastrar Taxas</RouterLink>

@@ -29,12 +29,12 @@ class ProductTypeController
 
             return true;
         } catch (PDOException $e) {
-            echo "Error: {$e->getMessage()}";
-
+            http_response_code(500);
+            echo json_encode(['status' => 401, 'message' => $e->getMessage()]);
             return false;
         } catch(Exception $e) {
-            echo "Error: {$e->getMessage()}";
-
+            http_response_code(500);
+            echo json_encode(['status' => 500, 'message' => $e->getMessage()]);
             return false;
         }
     }

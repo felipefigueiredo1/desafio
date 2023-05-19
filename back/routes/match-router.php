@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SaleController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductTypeController;
 use App\Http\Controllers\ProductTypeTaxRateController;
@@ -15,6 +16,8 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     $r->addRoute('POST', '/product-types', ProductTypeController::class . '/store');
     $r->addRoute('GET', '/product-type-tax-rates', ProductTypeTaxRateController::class . '/index');
     $r->addRoute('POST', '/product-type-tax-rates', ProductTypeTaxRateController::class . '/store');
+    $r->addRoute('GET', '/sales', SaleController::class . '/index');
+    $r->addRoute('POST', '/sales', SaleController::class . '/store');
 
     // {id} must be a number (\d+)
     //$r->addRoute('GET', '/user/{id:\d+}', 'get_user_handler');

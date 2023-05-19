@@ -23,7 +23,7 @@ import ErrorContainer from '../components/ErrorContainer.vue';
 const auth = useAuth();
 
 const user = reactive({
-    email: 'felip2e@email.com',
+    email: 'felipe@email.com',
     password: '123456'
 })
 
@@ -35,7 +35,6 @@ async function login() {
         auth.login(data.jwt, data.rjwt, data.user);
         router.push('/')
     } catch(error) {
-        console.log(error);
         errorResponse.message = error.response.data.message;
     }
 }

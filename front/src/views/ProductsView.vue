@@ -34,18 +34,20 @@ import WarningContainer from '../components/WarningContainer.vue';
 import ErrorContainer from '../components/ErrorContainer.vue';
 
 
-onMounted(() => {
-    populateData();
-})
-
 const products = reactive({itens: []})
 const productTypes = reactive({itens: []})
 const auth = useAuth();
 const product = reactive({name: '', product_type_id: ''})
 const errorResponse = reactive({message: ''});
 
+onMounted(async () => {
+    await auth.refreshTokenF();
+    populateData();
+})
+
 async function save() {
     try {
+        await auth.refreshTokenF();
         await http.post('products',  product, {
             headers: {
                 Authorization: `Bearer ${auth.token}`

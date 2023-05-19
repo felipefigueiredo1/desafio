@@ -28,7 +28,8 @@ const auth = useAuth();
 
 const productTypes = reactive({itens: []})
 
-onMounted(() => {
+onMounted(async () => {
+    await auth.refreshTokenF();
     populateData();
     console.log(productTypes);
 })
@@ -39,6 +40,7 @@ const errorResponse = reactive({message: ''});
 
 async function save() {
     try {
+        await auth.refreshTokenF();
         await http.post('product-types',  productType, {
             headers: {
                 Authorization: `Bearer ${auth.token}`

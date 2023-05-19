@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Exception;
 use PDOException;
-use App\Models\ProductTypeTaxRate;
+use App\Models\Sale;
+use App\Models\Product;
 use App\Http\Controllers\AuthController;
 
-class SalesController
+class SaleController
 {
     public AuthController $auth;
 
@@ -23,9 +24,9 @@ class SalesController
         } 
 
         try {
-            $productTypeTaxRates = ProductTypeTaxRate::all();
-
-            echo json_encode(['productTypeTaxRates' => $productTypeTaxRates]);
+            $sales = Sale::all();
+            $products = Product::whereHas('sales')->get();
+            echo json_encode(['sales' => $sales, 'products' => $products]);
 
             return true;
         } catch (PDOException $e) {
@@ -41,18 +42,24 @@ class SalesController
 
     public function store(): bool
     {
+        if(!$this->auth->auth(true)) {
+            return false;
+        } 
+        
         try {
             $json = file_get_contents('php://input');
 
             $data = json_decode($json, true);
-
-            $productTypeTaxRate = new ProductTypeTaxRate();
             
-            $productTypeTaxRate->product_type_id = $data['product_type_id'];
-            $productTypeTaxRate->name = $data['name'];
-            $productTypeTaxRate->save();
 
-            echo json_encode($productTypeTaxRate);
+            foreach($data['itens'] as $d) {
+                $productType = new Sale();
+                $productType->product_id = $d['id'];
+                $productType->quantity = $d['qty'];
+                $productType->save();
+            }
+
+            echo json_encode(['status' => 200, 'message' => 'success']);
 
             return true;
         } catch (PDOException $e) {

@@ -32,7 +32,8 @@ import {useAuth} from '../stores/auth.ts';
 import WarningContainer from '../components/WarningContainer.vue';
 import ErrorContainer from '../components/ErrorContainer.vue';
 
-onMounted(() => {
+onMounted(async () => {
+    await auth.refreshTokenF();
     populateData();
 })
 
@@ -77,6 +78,7 @@ async function getProductTypeTaxRates() {
 
 async function save() {
     try {
+        await auth.refreshTokenF();
         await http.post('product-type-tax-rates',  tax, {
             headers: {
                 Authorization: `Bearer ${auth.token}`

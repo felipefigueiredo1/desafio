@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import LoginView from '../views/LoginView.vue';
+import SalesView from '../views/SalesView.vue';
 import ProductsView from '../views/ProductsView.vue';
 import ProductTypesView from '../views/ProductTypesView.vue';
 import ProductTypeTaxRatesView from '../views/ProductTypeTaxRatesView.vue';
@@ -27,6 +28,11 @@ const router = createRouter({
         // we return a redirect path/location here.
         return { path: '/login'}
       },
+    },
+    {
+      path: '/sales',
+      name: 'sales',
+      component: SalesView
     },
     {
       path: '/about',
