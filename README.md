@@ -11,6 +11,7 @@ Mas se quiser rodar sem docker faça as configurações abaixo:
 - Em '/back/postgres' faça o restore do arquivo init.sql ( postgresql )
 - Em '/back/config/bootstrap.php' coloque as credenciais do banco
 - Rode composer install em /back
+- Em '/back/public' execute o servidor php ex: php -S localhost:8000
 - Em '/front/services/http.ts' coloque as credenciais do dominio rodando o php
 
 Já deixei um usuário como padrão para fazer login no formulario. Enviei o build do vue como pedido, para acessar tem que está configurado para acessar o index.html do projeto ou simplesmente rodar npm install e npm run dev para ele ja abrir um server para execução.
