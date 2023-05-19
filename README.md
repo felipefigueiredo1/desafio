@@ -5,6 +5,7 @@
 O back-end está com um docker compose configurado, para iniciar o projeto basta entrar no diretorio back-end e rodar docker compose up -d.
 Após rodar esse comando entre no container do php e execute : docker exec -it php-fpm composer install.
 Já esta configurado no front e back para apontar certinho os containers.
+Se por acaso acusar que não existe a network, rode : docker network create my-app-network
 
 Mas se quiser rodar sem docker faça as configurações abaixo: 
 
