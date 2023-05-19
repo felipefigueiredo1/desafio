@@ -3,9 +3,14 @@
         <p>Faça o Login para poder acessar a aplicação.</p>
 
     <form @submit.prevent="login">
-        <input type="email" placeholder="Seu email" v-model="user.email">
-        <input type="password" placeholder="Sua senha" v-model="user.password">
-        <button type="submit">Login</button>
+        <div class="mb-3">
+            <input type="email" class="form-control" placeholder="Seu email" v-model="user.email">
+        </div>
+        <div class="mb-3">
+            <input type="password" class="form-control" placeholder="Sua senha" v-model="user.password">
+        </div>
+
+        <button type="submit" class="btn btn-success">Login</button>
     </form>
 
     <ErrorContainer :error="errorResponse.message" v-if="errorResponse.message" />
