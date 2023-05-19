@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductTypeController;
+use App\Http\Controllers\ProductTypeTaxRateController;
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     $r->addRoute('POST', '/login', AuthController::class . '/login');
@@ -9,7 +11,11 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     $r->addRoute('GET', '/refresh', AuthController::class . '/refreshToken');
     $r->addRoute('GET', '/products', ProductController::class . '/index');
     $r->addRoute('POST', '/products', ProductController::class . '/store');
-    
+    $r->addRoute('GET', '/product-types', ProductTypeController::class . '/index');
+    $r->addRoute('POST', '/product-types', ProductTypeController::class . '/store');
+    $r->addRoute('GET', '/product-type-tax-rates', ProductTypeTaxRateController::class . '/index');
+    $r->addRoute('POST', '/product-type-tax-rates', ProductTypeTaxRateController::class . '/store');
+
     // {id} must be a number (\d+)
     //$r->addRoute('GET', '/user/{id:\d+}', 'get_user_handler');
     // The /{title} suffix is optional

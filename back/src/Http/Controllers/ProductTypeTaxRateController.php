@@ -29,12 +29,12 @@ class ProductTypeTaxRateController
 
             return true;
         } catch (PDOException $e) {
-            echo "Error: {$e->getMessage()}";
-
+            http_response_code(500);
+            echo json_encode(['status' => 401, 'message' => $e->getMessage()]);
             return false;
         } catch(Exception $e) {
-            echo "Error: {$e->getMessage()}";
-
+            http_response_code(500);
+            echo json_encode(['status' => 500, 'message' => $e->getMessage()]);
             return false;
         }
     }
@@ -49,19 +49,19 @@ class ProductTypeTaxRateController
             $productTypeTaxRate = new ProductTypeTaxRate();
             
             $productTypeTaxRate->product_type_id = $data['product_type_id'];
-            $productTypeTaxRate->name = $data['name'];
+            $productTypeTaxRate->tax_rate = $data['tax_rate'];
             $productTypeTaxRate->save();
 
             echo json_encode($productTypeTaxRate);
 
             return true;
         } catch (PDOException $e) {
-            echo "Error: {$e->getMessage()}";
-
+            http_response_code(500);
+            echo json_encode(['status' => 401, 'message' => $e->getMessage()]);
             return false;
         } catch(Exception $e) {
-            echo "Error: {$e->getMessage()}";
-
+            http_response_code(500);
+            echo json_encode(['status' => 500, 'message' => $e->getMessage()]);
             return false;
         }
         
