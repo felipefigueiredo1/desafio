@@ -103,7 +103,6 @@ async function populateData() {
   products.itens = await getProducts();
   productTypes.itens = await getProductTypes();
   productTypeTaxRates.itens = await getProductsTypeTaxRates();
-
   if(products.itens.length > 0) {
       products.itens = products.itens.map(item => {
       const productType = productTypes.itens.find(type => type.id === item.product_type_id);
@@ -123,7 +122,7 @@ async function getProducts() {
           Authorization: `Bearer ${auth.token}`
       }
   });
-  
+  console.log(data);
   return data.products;
 }
 

@@ -16,7 +16,7 @@ class ProductTypeTaxRateController
         $this->auth = new AuthController();
     }
 
-    public function index(): bool
+    public function index(): string
     {
         if(!$this->auth->auth(true)) {
             return false;
@@ -25,21 +25,17 @@ class ProductTypeTaxRateController
         try {
             $productTypeTaxRates = ProductTypeTaxRate::all();
 
-            echo json_encode(['productTypeTaxRates' => $productTypeTaxRates]);
-
-            return true;
+            return json_encode(['productTypeTaxRates' => $productTypeTaxRates]);
         } catch (PDOException $e) {
             http_response_code(500);
-            echo json_encode(['status' => 401, 'message' => $e->getMessage()]);
-            return false;
+            return json_encode(['status' => 401, 'message' => $e->getMessage()]);
         } catch(Exception $e) {
             http_response_code(500);
-            echo json_encode(['status' => 500, 'message' => $e->getMessage()]);
-            return false;
+            return json_encode(['status' => 500, 'message' => $e->getMessage()]);
         }
     }
 
-    public function store(): bool
+    public function store(): string
     {
         try {
             $json = file_get_contents('php://input');
@@ -52,17 +48,13 @@ class ProductTypeTaxRateController
             $productTypeTaxRate->tax_rate = $data['tax_rate'];
             $productTypeTaxRate->save();
 
-            echo json_encode($productTypeTaxRate);
-
-            return true;
+            return json_encode($productTypeTaxRate);
         } catch (PDOException $e) {
             http_response_code(500);
-            echo json_encode(['status' => 401, 'message' => $e->getMessage()]);
-            return false;
+            return json_encode(['status' => 401, 'message' => $e->getMessage()]);
         } catch(Exception $e) {
             http_response_code(500);
-            echo json_encode(['status' => 500, 'message' => $e->getMessage()]);
-            return false;
+            return json_encode(['status' => 500, 'message' => $e->getMessage()]);
         }
         
     }

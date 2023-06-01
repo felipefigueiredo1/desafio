@@ -1,0 +1,1 @@
+{"version":1,"defects":{"AuthTest::test_return_is_string":5,"AuthTest::test_if_return_jwt_token":7},"times":{"AuthTest::test_return_is_string":0.022,"AuthTest::test_if_return_jwt_token":0.024}}

@@ -17,7 +17,7 @@ class SaleController
         $this->auth = new AuthController();
     }
 
-    public function index(): bool
+    public function index(): string
     {
         if(!$this->auth->auth(true)) {
             return false;
@@ -26,21 +26,17 @@ class SaleController
         try {
             $sales = Sale::all();
             $products = Product::whereHas('sales')->get();
-            echo json_encode(['sales' => $sales, 'products' => $products]);
-
-            return true;
+            return json_encode(['sales' => $sales, 'products' => $products]);
         } catch (PDOException $e) {
             http_response_code(500);
-            echo json_encode(['status' => 401, 'message' => $e->getMessage()]);
-            return false;
+            return json_encode(['status' => 401, 'message' => $e->getMessage()]);
         } catch(Exception $e) {
             http_response_code(500);
-            echo json_encode(['status' => 500, 'message' => $e->getMessage()]);
-            return false;
+            return json_encode(['status' => 500, 'message' => $e->getMessage()]);
         }
     }
 
-    public function store(): bool
+    public function store(): string
     {
         if(!$this->auth->auth(true)) {
             return false;
@@ -59,17 +55,13 @@ class SaleController
                 $productType->save();
             }
 
-            echo json_encode(['status' => 200, 'message' => 'success']);
-
-            return true;
+            return json_encode(['status' => 200, 'message' => 'success']);
         } catch (PDOException $e) {
             http_response_code(500);
-            echo json_encode(['status' => 401, 'message' => $e->getMessage()]);
-            return false;
+            return json_encode(['status' => 401, 'message' => $e->getMessage()]);
         } catch(Exception $e) {
             http_response_code(500);
-            echo json_encode(['status' => 500, 'message' => $e->getMessage()]);
-            return false;
+            return json_encode(['status' => 500, 'message' => $e->getMessage()]);
         }
         
     }

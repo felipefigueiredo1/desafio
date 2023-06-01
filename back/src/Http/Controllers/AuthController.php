@@ -23,9 +23,9 @@ class AuthController
      * @echo void
      */
 
-    public function login(): bool
+    public function login($inputs = null): string
     {
-        $json = file_get_contents('php://input');
+        $json = $inputs ?? file_get_contents('php://input');
         $data = json_decode($json, true);
 
         $email = filter_var($data['email'], FILTER_VALIDATE_EMAIL);
@@ -35,9 +35,7 @@ class AuthController
 
         if (!$userFound || $password != $userFound->password) {
             http_response_code(404);
-            echo json_encode(['status' => 404, 'message' => 'Usuário não encontrado']);
-
-            return false;
+            return json_encode(['status' => 404, 'message' => 'Usuário não encontrado']);
         }
 
         $payload = [
@@ -57,9 +55,7 @@ class AuthController
 
         $r_encode = JWT::encode($r_payload, $_ENV['KEY'], 'HS256');
 
-        echo json_encode(['jwt' => $encode, 'rjwt' => $r_encode, 'user' => $userFound->name]);
-
-        return true;
+        return json_encode(['jwt' => $encode, 'rjwt' => $r_encode, 'user' => $userFound->name]);
     }
 
     /**
@@ -67,14 +63,12 @@ class AuthController
      *
      * @echo void
      */
-    public function auth($external = false): bool
+    public function auth($external = false): string|bool
     {
         if(!isset($_SERVER["HTTP_AUTHORIZATION"])) {
             http_response_code(401);
             
-            echo json_encode(['status' => 401, 'message' =>'Bearer Token Não encontrado']);
-            
-            return false;
+            return json_encode(['status' => 401, 'message' =>'Bearer Token Não encontrado']);
         }
 
         $token = str_replace("Bearer ", "", $_SERVER["HTTP_AUTHORIZATION"]);
@@ -86,17 +80,16 @@ class AuthController
 
         } catch (\Firebase\JWT\ExpiredException $e) {
             http_response_code(401);
-            echo json_encode(['status' => 401, 'message' => $e->getMessage()]);
+            return json_encode(['status' => 401, 'message' => $e->getMessage()]);
 
-            return false;
         } catch (\Throwable $th) {
             http_response_code(401);
-            echo json_encode(['status' => 401, 'message' => $th->getMessage()]);
+            return json_encode(['status' => 401, 'message' => $th->getMessage()]);
 
-            return false;
         }
+
         if(!$external) { 
-            echo json_encode(['jwt' => $token]);
+            return json_encode(['jwt' => $token]);
         }
 
         return true;
@@ -107,20 +100,16 @@ class AuthController
      *
      * @echo void
      */
-    public function refreshToken(): bool
+    public function refreshToken(): string
     {
         $token = str_replace("Bearer ", "", $_SERVER["HTTP_AUTHORIZATION"]);
         
         try {
             $decode = JWT::decode($token,  new Key($_ENV['KEY'], 'HS256'));
-            echo $this->createNewToken($decode->email);
-
-            return true;
+            return $this->createNewToken($decode->email);
         } catch (\Throwable $th) {
             http_response_code(401);
-            echo json_encode(['status' => 401, 'message' => $th->getMessage()]);
-
-            return false;
+            return json_encode(['status' => 401, 'message' => $th->getMessage()]);
         }
     }
 

@@ -16,7 +16,7 @@ class ProductTypeController
         $this->auth = new AuthController();
     }
 
-    public function index(): bool
+    public function index(): string
     {
         if(!$this->auth->auth(true)) {
             return false;
@@ -25,21 +25,17 @@ class ProductTypeController
         try {
             $productTypes = ProductType::all();
 
-            echo json_encode(['productTypes' => $productTypes]);
-
-            return true;
+            return json_encode(['productTypes' => $productTypes]);
         } catch (PDOException $e) {
             http_response_code(500);
-            echo json_encode(['status' => 401, 'message' => $e->getMessage()]);
-            return false;
+            return json_encode(['status' => 401, 'message' => $e->getMessage()]);
         } catch(Exception $e) {
             http_response_code(500);
-            echo json_encode(['status' => 500, 'message' => $e->getMessage()]);
-            return false;
+            return json_encode(['status' => 500, 'message' => $e->getMessage()]);
         }
     }
 
-    public function store(): bool
+    public function store(): string
     {
         if(!$this->auth->auth(true)) {
             return false;
@@ -55,17 +51,13 @@ class ProductTypeController
             $productType->name = $data['name'];
             $productType->save();
 
-            echo json_encode($productType);
-
-            return true;
+            return json_encode($productType);
         } catch (PDOException $e) {
             http_response_code(500);
-            echo json_encode(['status' => 401, 'message' => $e->getMessage()]);
-            return false;
+            return json_encode(['status' => 401, 'message' => $e->getMessage()]);
         } catch(Exception $e) {
             http_response_code(500);
-            echo json_encode(['status' => 500, 'message' => $e->getMessage()]);
-            return false;
+            return json_encode(['status' => 500, 'message' => $e->getMessage()]);
         }
         
     }
